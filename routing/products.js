@@ -3,11 +3,15 @@ const express = require("express");
 const { MENU_LINKS } = require("../constants/navigation");
 const { STATUS_CODE } = require("../constants/statusCode");
 const productsSlice = require("../store/products");
+const productController = require("../controllers/productsController");
+const productModel = require("../models/Product");
 
 const router = express.Router();
 
 router.get("/", (_request, response) => {
-  response.render("products.ejs", {
+  const allProducts = productController.getProductsView();
+
+  response.render(allProducts, {
     headTitle: "Shop - Products",
     path: "/",
     menuLinks: MENU_LINKS,
@@ -17,7 +21,9 @@ router.get("/", (_request, response) => {
 });
 
 router.get("/add", (_request, response) => {
-  response.render("add-product.ejs", {
+  const addProduct = productController.addNewProduct();
+
+  response.render(addProduct, {
     headTitle: "Shop - Add product",
     path: "/add",
     menuLinks: MENU_LINKS,
@@ -25,14 +31,18 @@ router.get("/add", (_request, response) => {
   });
 });
 
-router.post("/add", (request, response) => {
+router.post("/add", productController.addNewProduct);
+/*
+router.post("/add", (request, response) => { //TODO
   productsSlice.newestProduct = request.body;
   productsSlice.products.push(request.body);
   response.status(STATUS_CODE.FOUND).redirect("/products/new");
-});
+});*/
 
 router.get("/new", (_request, response) => {
-  response.render("new-product.ejs", {
+  const getNewProduct = productController.getNewProductView();
+
+  response.render(getNewProduct, {
     headTitle: "Shop - New product",
     path: "/new",
     activeLinkPath: "/products/new",

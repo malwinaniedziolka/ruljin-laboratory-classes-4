@@ -11,9 +11,10 @@ const getAddProductView  = (req, res) => {
     res.sendFile(getFileFromAbsolutePath("views", "add-product"));
 }
 
-const addNewProduct  = (req, res) => { //TODO BO NWM
-  productModel.addNewProduct(name);
-  res.redirect('/products/new');
+const addNewProduct  = (req, res) => {
+    const { name, description } = req.params;
+    productModel.addNewProduct(name, description);
+    res.redirect('/products/new');
 }
 
 const getNewProductView  = (req, res) => {
@@ -26,10 +27,13 @@ const getProductView  = (req, res) => {
     res.render("product", { product: product });
 }
 
-const deleteProduct  = (req, res) => { //TODO
-    //usueniecie
+const deleteProduct  = (req, res) => {
+    const { name } = req.params;
+    Product.deleteByName(name);
     res.status(200).json({ success: true });
 }
+
+//
 
 module.exports = {
     getProductsView,

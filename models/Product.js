@@ -11,7 +11,7 @@ class Product {
     };
     
     static add = (product) => {
-        users.push(product);
+        Product.#products.push(product);
     };
     
     static findByName = (name) => {
@@ -19,7 +19,7 @@ class Product {
     };
     
     static deleteByName = (name) => {
-        //usunac product z tab
+        this.#products = this.#products.filter(product => product.name !== name);
     };
 
     static getLast = () => {

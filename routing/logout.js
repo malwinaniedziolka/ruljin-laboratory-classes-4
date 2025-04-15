@@ -6,7 +6,9 @@ const logoutController = require("../controllers/logoutController");
 const router = express.Router();
 
 router.get("/", (_request, response) => {
-  response.render(logoutController.getLogoutView, {
+  const logoutview = logoutController.getLogoutView();
+
+  response.render(logoutview, {
     headTitle: "Shop - Logout",
     path: "/logout",
     activeLinkPath: "/logout",
