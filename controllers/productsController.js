@@ -1,5 +1,4 @@
 const getFileFromAbsolutePath = require("../utils/getFileFromAbsolutePath");
-//const logger = require("../utils/logger");
 const productModel = require("../models/Product");
 
 const getProductsView = (req, res) => {
